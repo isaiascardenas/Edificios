@@ -1,0 +1,6 @@
+Hormigón;MaterialSoporteEstructural;10;15
+VigasMetal;MaterialSoporteEstructural;15;10
+Oro;MaterialInterior;100;5
+OroRecubierto;MaterialExterior;150;7
+Plata;MaterialInterior;50;5
+PlataRecubierta;MaterialExterior;60;7
