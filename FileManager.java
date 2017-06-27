@@ -28,10 +28,6 @@ public class FileManager
 
 			String line = "";
     		while ((line = br.readLine()) != null) {
-    			// for (String s : line.split(";")) {
-    			// 	System.out.print(s + " ");
-    			// }
-    			// System.out.println();
         		this.fileContent.add(line.split(";"));
     		}
     		fr.close();
