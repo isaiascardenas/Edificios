@@ -1,6 +1,5 @@
-MaterialSoporteEstructural=75%
-MaterialInterior=15%
-MaterialExterior=10%
-2 3
+MaterialSoporteEstructural=60%
+MaterialInterior=40%
+3 4
 1000000
 10000

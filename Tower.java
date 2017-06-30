@@ -9,8 +9,8 @@ public class Tower
 	private int weight;
 	private int totalPrice;
 	private HashMap<Material, Integer> materialsCount = new HashMap<Material, Integer>();
-	private HashMap<String, Integer> materialsRatio = new HashMap<String, Integer>();
-	private HashMap<String, Integer> materialsPercents = new HashMap<String, Integer>();
+	private HashMap<String, Integer> categoriesRatios = new HashMap<String, Integer>();
+	private HashMap<String, Integer> categoriesPercents = new HashMap<String, Integer>();
 	private List<Material> materials = new ArrayList<Material>();
 
 	public Tower()
@@ -22,14 +22,15 @@ public class Tower
 		this.totalPrice = 0 ;
 	}
 
-	public Tower(int m, int n, HashMap<String, Integer> materialsRatio)
+	public Tower(int m, int n, HashMap<String, Integer> categoriesRatios, HashMap<String, Integer> categoriesPercents)
 	{
 		this.m = m;
 		this.n = n;
 		this.h = 0;
 		this.weight = 0;
 		this.totalPrice = 0 ;
-		this.materialsRatio = materialsRatio;
+		this.categoriesRatios = categoriesRatios;
+		this.categoriesPercents = categoriesPercents;
 	}
 
 	public void setArea(int[] area)
@@ -40,7 +41,7 @@ public class Tower
 
 	public void setMaterialsRatio(HashMap<String, Integer> percents)
 	{
-		this.materialsPercents = percents;
+		this.categoriesPercents = percents;
 		int[] arrayPercets = new int[percents.size()];
 		int i = 0;	
 		for (int n : percents.values()) {
@@ -51,46 +52,51 @@ public class Tower
 		i = this.gcd(arrayPercets);
 
 		for (String category : percents.keySet()) {
-			this.materialsRatio.put(category, percents.get(category)/i);
+			this.categoriesRatios.put(category, percents.get(category)/i);
 		}
 	}
 
 	public void setMinH()
 	{
 		int sum = 0;
-		for (int ratio : this.materialsRatio.values()) {
+		for (int ratio : this.categoriesRatios.values()) {
 			sum += ratio;
 		}
+		int volume = sum;
 
-		if ((this.m * this.n) % sum == 0) {
-			this.minH = 1;
-		} else if (sum % (this.m * this.n) == 0){
-			this.minH = sum / (this.m * this.n);
-		} 
-
+		while(volume%(this.m * this.n) != 0){
+			volume+=sum;
+		}
+		this.minH = volume/(this.m * this.n);
 		this.h = this.minH;
+
 		this.setMaterialsCount();
 		this.setTotalPrice();
+		this.setWeight();
 	}
 
 	public void setMaterialsCount()
 	{
 		int volume = this.m * this.n * this.h;
-		System.out.println("vol: "+volume);
-		for (String materialName : this.materialsPercents.keySet()) {
-			this.materialsCount.put(this.getMaterialByName(materialName), volume * this.materialsPercents.get(materialName)/100);
+		for (Material material : this.materials) {
+			this.materialsCount.put(material, volume * this.categoriesPercents.get(material.getCategory())/100);
 		}
 	}
 
 	public void setTotalPrice()
 	{
-		int sum = 0;
+		this.totalPrice = 0;
 		for (Material material : this.materialsCount.keySet()) {
-			sum += this.materialsCount.get(material);
-			System.out.println(sum);
-			this.materialsCount.put(material, material.getPrice() * this.materialsCount.get(material));
+			this.totalPrice += this.materialsCount.get(material)* material.getPrice();
 		}
+	}
 
+	public void setWeight()
+	{
+		this.weight = 0;
+		for (Material material : this.materialsCount.keySet()) {
+			this.weight += this.materialsCount.get(material)* material.getWeight();
+		}
 	}
 
 	public void setMaterials(List<Material> materials)
@@ -113,7 +119,12 @@ public class Tower
 
 	public HashMap<String, Integer> getMaterialsRatio()
 	{
-		return this.materialsRatio;
+		return this.categoriesRatios;
+	}
+
+	public HashMap<String, Integer> getMaterialsPercents()
+	{
+		return this.categoriesPercents;
 	}
 
 	public int getWeight(){
@@ -134,6 +145,15 @@ public class Tower
 	public int getH()
 	{
 		return this.h;
+	}
+
+	public void buildFloors()
+	{
+		this.h += this.minH;
+
+		this.setMaterialsCount();
+		this.setTotalPrice();
+		this.setWeight();
 	}
 
 	private int gcd(int a, int b)

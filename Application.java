@@ -13,28 +13,29 @@ public class Application
 		
 		FileManager file = new FileManager("ListaMateriales.txt");
 		Materials materials = new Materials();
-		Tower tower = new Tower();
+		Tower baseTower = new Tower();
 
 		file.readFile();
 
 		materials.setMaterials(file.getFileContent());
 		
-		tower.setMaterialsRatio(this.inputPercents(materials.getCategories()));
-		tower.setArea(this.inputArea());
+		baseTower.setMaterialsRatio(this.inputPercents(materials.getCategories()));
+		baseTower.setArea(this.inputArea());
 
 		//
 
 		States s = new States();
-		SearchSolution solver = new SearchSolution();
+		SearchSolution solver = new SearchSolution(this.inputBudget(), this.inputWeight());
 
 		s.setMaterials(materials.getMaterials());
-		s.initOpenStates(tower.getMaterialsRatio());
-		s.combineMaterials(tower.getMaterialsRatio());
-
+		s.initOpenStates(baseTower.getMaterialsRatio());
 		
-		solver.setSolutionsSet(s.combineMaterials(tower.getMaterialsRatio()), tower);
+		solver.setSolutionsSet(s.combineMaterials(baseTower.getMaterialsRatio()), baseTower);
+		Tower highestTower = solver.findHighestTower();
 
-		// System.out.println("Done!");
+		System.out.println("Done!");
+		System.out.print("Torre mas alta:"+highestTower.getH());
+		System.out.println(" W:"+highestTower.getWeight()+" $:"+highestTower.getTotalPrice());
 	}
 
 	private int inputWeight(){
@@ -43,7 +44,7 @@ public class Application
 		return this.sc.nextInt();
 	}
 
-	private int inputPresupuesto(){
+	private int inputBudget(){
 		// System.out.println("¿Cuál es el presupuesto?");
 		// System.out.print(">> ");
 		return this.sc.nextInt();

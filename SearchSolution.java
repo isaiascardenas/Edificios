@@ -3,31 +3,58 @@ import java.util.*;
 public class SearchSolution
 {
 	private List<Tower> solutionsSet = new ArrayList<Tower>();
+	private List<Tower> solutionsBackup = new ArrayList<Tower>();
+	private int budget;
+	private int maxWeight;
+
+	public SearchSolution(int budget, int maxWeight)
+	{
+		this.budget = budget;
+		this.maxWeight = maxWeight;
+	}
 
 	public void setSolutionsSet(List<List<Material>> combineMaterials, Tower baseTower)
 	{
-		List<Tower> solutionsSet = new ArrayList<Tower>();
 		for (List<Material> materials : combineMaterials) {
-			Tower newTower = new Tower(baseTower.getArea()[0], baseTower.getArea()[1], baseTower.getMaterialsRatio());
+			Tower newTower = new Tower(baseTower.getArea()[0], baseTower.getArea()[1], baseTower.getMaterialsRatio(), baseTower.getMaterialsPercents());
 			newTower.setMaterials(materials);
 			newTower.setMinH();
-			System.out.print("h: "+newTower.getH());
-			System.out.println(" price: "+newTower.getTotalPrice());
+			
+			this.solutionsSet.add(newTower);
 		}
 	}
 
-	public void run()
-	{		
-		// FileManager file = new FileManager("ListaMateriales.txt");
-		// Materials materials = new Materials();
-		// Tower tower = new Tower();
+	public Tower findHighestTower()
+	{
+		while(this.solutionsSet.size() > 0) {
+			this.filterHighestTower();
+		}
+		System.out.println("sb.size: "+this.solutionsBackup.size());
+		return this.solutionsBackup.get(0);
+	}
 
-		// file.readFile();
-		// materials.setMaterials(file.getFileContent());
-		
-		// tower.setPercents(this.inputPercents(materials.getCategories()));
-		// tower.setArea(this.inputArea());
+	public void filterHighestTower()
+	{	
+		this.solutionsBackup.clear();
+		List<Tower> solutionsSetClone = new ArrayList<Tower>(this.solutionsSet);
 
-		// System.out.println("Done!");
+		for (Tower tower : solutionsSetClone) {
+			if (tower.getTotalPrice() > this.budget || tower.getWeight() > this.maxWeight) {
+				this.solutionsBackup.add(this.solutionsSet.remove(this.solutionsSet.indexOf(tower)));
+			}
+
+			tower.buildFloors();
+		}
+		this.showTowers(this.solutionsBackup);
+	}
+
+	//
+	public void showTowers(List<Tower> list)
+	{
+		for (Tower t : list) {
+			System.out.print("h: "+t.getH());
+			System.out.print(" w: "+t.getWeight());
+			System.out.println(" price: "+t.getTotalPrice());
+		}
 	}
 }
