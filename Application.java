@@ -2,46 +2,81 @@ import java.util.*;
 
 public class Application
 {
+	private Scanner sc;
+
+	public Application(){
+		this.sc = new Scanner(System.in);
+	}
+
 	public void run()
 	{
-		Scanner sc = new Scanner(System.in);
+		
 		FileManager file = new FileManager("ListaMateriales.txt");
+		Materials materials = new Materials();
+		Tower tower = new Tower();
+
 		file.readFile();
 
-		Materials materials = new Materials();
-
 		materials.setMaterials(file.getFileContent());
+		
+		tower.setMaterialsRatio(this.inputPercents(materials.getCategories()));
+		tower.setArea(this.inputArea());
 
-		// System.out.println(file.getFileContent());
+		//
 
-		// Entrada de usuario
-		// System.out.println("¿Cuáles son los porcentajes?");
-		// System.out.print(">> ");
-		// String soporte = sc.nextLine();
-		// System.out.print("\n>> ");
-		// String interior = sc.nextLine();
-		// System.out.print("\n>> ");
-		// String exterior = sc.nextLine(); 
-
-		// System.out.println("¿Cuál es el área que usará la torre?");
-		// System.out.print(">> ");
-		// String[] area = sc.nextLine().split(" ");
-		// int m = Integer.parseInt(area[0]);
-		// int n = Integer.parseInt(area[1]);
-
-		// System.out.println("¿Cuál es el presupuesto?");
-		// System.out.print(">> ");
-		// int presupuesto = sc.nextInt();
-
-		// System.out.println("¿Cuál es el peso que aguanta el área donde se construirá?");
-		// System.out.print(">> ");
-		// int pesoMax = sc.nextInt();
-
-		// 
-		// Tower higher = new Tower();
-		// Tower expensive = new Tower();
-		// Tower empty = new Tower();
+		States s = new States();
+		s.setMaterials(materials.getMaterials());
+		s.initOpenStates();
+		s.transitions();
 
 		// System.out.println("Done!");
+	}
+
+	private int inputWeight(){
+		// System.out.println("¿Cuál es el peso que aguanta el área donde se construirá?");
+		// System.out.print(">> ");
+		return this.sc.nextInt();
+	}
+
+	private int inputPresupuesto(){
+		// System.out.println("¿Cuál es el presupuesto?");
+		// System.out.print(">> ");
+		return this.sc.nextInt();
+	}
+
+	private int[] inputArea(){
+		int[] area = new int[2];
+		// System.out.println("¿Cuál es el área que usará la torre?");
+		// System.out.print(">> ");
+		String[] input = this.sc.nextLine().split(" ");
+		area[0] = Integer.parseInt(input[0]);
+		area[1] = Integer.parseInt(input[1]);
+
+		return area;
+	}
+
+	private HashMap<String, Integer> inputPercents(List<String> categories){
+		HashMap<String, Integer> percents = new HashMap<String, Integer>();
+		int totalPercents = 0;
+
+		// System.out.println("¿Cuáles son los porcentajes?");
+		while(totalPercents != 100){
+			// System.out.print(">> ");
+			String[] input = this.sc.nextLine().split("=");
+
+			if (categories.contains(input[0])) {
+				totalPercents += Integer.parseInt(input[1].split("%")[0]);
+				if (totalPercents > 100) {
+					System.out.println("Los porcentajes ingresados deben sumar 100%.");
+					System.out.println("Ingrese el último porcentaje nuevamente");
+				} else {
+					percents.put(input[0], Integer.parseInt(input[1].split("%")[0]));
+				}
+			} else {
+				System.out.println("Categoría no encontrada.");
+			}
+		}
+
+		return percents;
 	}
 }
