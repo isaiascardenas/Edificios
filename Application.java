@@ -25,9 +25,14 @@ public class Application
 		//
 
 		States s = new States();
+		SearchSolution solver = new SearchSolution();
+
 		s.setMaterials(materials.getMaterials());
-		s.initOpenStates();
-		s.transitions();
+		s.initOpenStates(tower.getMaterialsRatio());
+		s.combineMaterials(tower.getMaterialsRatio());
+
+		
+		solver.setSolutionsSet(s.combineMaterials(tower.getMaterialsRatio()), tower);
 
 		// System.out.println("Done!");
 	}

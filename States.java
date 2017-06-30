@@ -11,9 +11,9 @@ public class States
 		this.materials = materials;
 	}
 
-	public void initOpenStates()
+	public void initOpenStates(HashMap<String, Integer> categories)
 	{
-		for (String category : this.materials.keySet()) {
+		for (String category : categories.keySet()) {
 			for (Material material : this.materials.get(category)) {
 				ArrayList<Material> states = new ArrayList<Material>();
 				states.add(material);
@@ -23,11 +23,11 @@ public class States
 		}
 	}
 
-	public void transitions()
+	public List<List<Material>> combineMaterials(HashMap<String, Integer> categories)
 	{
 		int i = 0;
 		List<Material> state = new ArrayList<Material>();
-		for (String category : this.materials.keySet()) {
+		for (String category : categories.keySet()) {
 			if (i >0) {
 				this.changeData(this.openStates, this.newOpenStates);
 
@@ -43,6 +43,7 @@ public class States
 			}
 			i++;
 		}
+		return this.openStates;
 	}
 
 	private void changeData(List<List<Material>> fullList, List<List<Material>> emptyList)
