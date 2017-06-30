@@ -2,37 +2,29 @@ import java.util.*;
 
 public class Materials
 {
-	private List<Material> structural =  new ArrayList<Material>();
-	private List<Material> internal =  new ArrayList<Material>();
-	private List<Material> external =  new ArrayList<Material>();
-
-	public Materials()
-	{
-
-	}
+	// private HashMap<String, Integer> percents = new HashMap<String, Integer>();
+	private HashMap<String, List<Material>> materials = new HashMap<String, List<Material>>();
 
 	public void setMaterials(List<String[]> data){
 		for (String[] element: data) {
 			Material material = new Material(element);
-			if (element[1] == "MaterialExterior") {
-				this.external.add(material);
-			} else if (element[1] == "MaterialInterior") {
-				this.internal.add(material);
+
+			if (this.materials.get(element[1]) == null) {
+				List<Material> newCategory = new ArrayList<Material>();
+				newCategory.add(material);
+
+				this.materials.put(element[1], newCategory);
 			} else {
-				this.structural.add(material);
+				this.materials.get(element[1]).add(material);
 			}
 		}
 	}
 
-	public List<Material> getStructural(){
-		return this.structural;
+	public List<Material> getMaterialCategory(String category){
+		return this.materials.get(category);
 	}
 
-	public List<Material> getInternal(){
-		return this.internal;
-	}
-	
-	public List<Material> getExternal(){
-		return this.external;
+	public int getMaterialsSize(){
+		return this.materials.size();
 	}
 }
