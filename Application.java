@@ -9,16 +9,13 @@ public class Application
 	}
 
 	public void run()
-	{
-		
+	{	
 		FileManager file = new FileManager("ListaMateriales.txt");
 		Materials materials = new Materials();
 		Tower baseTower = new Tower();
 
 		file.readFile();
-
 		materials.setMaterials(file.getFileContent());
-		
 		baseTower.setMaterialsRatio(this.inputPercents(materials.getCategories()));
 		baseTower.setArea(this.inputArea());
 
@@ -32,10 +29,36 @@ public class Application
 		
 		solver.setSolutionsSet(s.combineMaterials(baseTower.getMaterialsRatio()), baseTower);
 		Tower highestTower = solver.findHighestTower();
+		solver.clearSolutionsSpace();
 
-		System.out.println("Done!");
-		System.out.print("Torre mas alta:"+highestTower.getH());
-		System.out.println(" W:"+highestTower.getWeight()+" $:"+highestTower.getTotalPrice());
+		solver.setSolutionsSet(s.combineMaterials(baseTower.getMaterialsRatio()), baseTower);
+		Tower expensiveTower = solver.findExpensiveTower();
+		solver.clearSolutionsSpace();
+
+		// solver.setSolutionsSet(s.combineMaterials(baseTower.getMaterialsRatio()), baseTower);
+		// Tower voidTower = solver.findExpensiveTower();
+		// solver.clearSolutionsSpace();
+
+		//
+
+		if (highestTower == null) {
+			System.out.println("Esta torre(la mas alta) no se puede construir");
+		} else {
+			System.out.print("Torre mas alta:\nh: "+highestTower.getH());
+			System.out.println(";"+highestTower.getHole());
+			System.out.println(" W:"+highestTower.getWeight()+" $:"+highestTower.getTotalPrice());
+		}
+
+		if (expensiveTower == null) {
+			System.out.println("Esta torre(la mas lujosa) no se puede construir");
+		} else {
+			System.out.print("\nTorre mas lujosa:\nh: "+expensiveTower.getH());
+			System.out.println(" W:"+expensiveTower.getWeight()+" $:"+expensiveTower.getTotalPrice());
+		}
+
+		// System.out.println("Done!");
+		// System.out.print("Torre mas alta hueca es:"+expensiveTower.getH());
+		// System.out.println(" W:"+expensiveTower.getWeight()+" $:"+expensiveTower.getTotalPrice());
 	}
 
 	private int inputWeight(){

@@ -5,6 +5,7 @@ public class Tower
 	private int m;
 	private int n;
 	private int h;
+	private int hole;
 	private int minH;
 	private int weight;
 	private int totalPrice;
@@ -27,6 +28,7 @@ public class Tower
 		this.m = m;
 		this.n = n;
 		this.h = 0;
+		this.hole = (this.m/2)*(this.n/2)*(this.m/5);
 		this.weight = 0;
 		this.totalPrice = 0 ;
 		this.categoriesRatios = categoriesRatios;
@@ -70,6 +72,27 @@ public class Tower
 		this.minH = volume/(this.m * this.n);
 		this.h = this.minH;
 
+
+		this.setMaterialsCount();
+		this.setTotalPrice();
+		this.setWeight();
+	}
+
+	public void setMinHWithHole()
+	{
+		int sum = 0;
+		for (int ratio : this.categoriesRatios.values()) {
+			sum += ratio;
+		}
+		int volume = sum+this.hole;
+
+		while(volume%(this.m * this.n) != 0){
+			volume+=sum;
+		}
+		this.minH = volume/(this.m * this.n);
+		this.h = this.minH;
+
+
 		this.setMaterialsCount();
 		this.setTotalPrice();
 		this.setWeight();
@@ -110,6 +133,10 @@ public class Tower
 		area[0] = this.m;
 		area[1] = this.n;
 		return area;
+	}
+
+	public int getHole(){
+		return this.hole;
 	}
 
 	public int getTotalPrice()

@@ -1,0 +1,3 @@
+Lima;Externo;25;20
+Lapizlasuli;Externo;45;30
+Morado;Interno;20;10

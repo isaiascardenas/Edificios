@@ -24,12 +24,65 @@ public class SearchSolution
 		}
 	}
 
+	public Tower findExpensiveTower()
+	{	Tower expensiveTower;
+		int towersVolume = 0;
+		while(towersVolume != 100 && this.solutionsSet.size() > 0) {
+			expensiveTower = this.solutionsSet.get(0);
+			towersVolume = expensiveTower.getArea()[0] * expensiveTower.getArea()[1] * expensiveTower.getH();
+
+			this.filterExpensiveTower();
+		}
+
+		expensiveTower = new Tower();
+		if (this.solutionsSet.size() > 0) {
+			for (Tower tower :  this.solutionsSet) {
+				if (tower.getTotalPrice() > expensiveTower.getTotalPrice() ) {
+					expensiveTower = tower;
+				}
+			}
+		} else {
+			return null;
+		}
+
+		// System.out.println("sb.size: "+this.solutionsBackup.size());
+		return expensiveTower;
+	}
+
+	public void filterExpensiveTower()
+	{
+		this.solutionsBackup.clear();
+		List<Tower> solutionsSetClone = new ArrayList<Tower>(this.solutionsSet);
+
+		for (Tower tower : solutionsSetClone) {
+			if (100 %(tower.getArea()[0]*tower.getArea()[1]) != 0) {
+				this.solutionsSet.clear();
+			}else if (tower.getTotalPrice() > this.budget || tower.getWeight() > this.maxWeight) {
+				this.solutionsSet.remove(tower);
+			}
+
+			tower.buildFloors();
+		}
+		// this.showTowers(this.solutionsBackup);
+	}
+
 	public Tower findHighestTower()
 	{
 		while(this.solutionsSet.size() > 0) {
 			this.filterHighestTower();
 		}
-		System.out.println("sb.size: "+this.solutionsBackup.size());
+
+		// System.out.println("sb.size: "+this.solutionsBackup.size());
+		return this.solutionsBackup.get(0);
+	}
+
+	public Tower findVoidTower()
+	{
+		while(this.solutionsSet.size() > 0) {
+			this.filterHighestTower();
+		}
+
+		// System.out.println("sb.size: "+this.solutionsBackup.size());
 		return this.solutionsBackup.get(0);
 	}
 
@@ -45,7 +98,13 @@ public class SearchSolution
 
 			tower.buildFloors();
 		}
-		this.showTowers(this.solutionsBackup);
+		// this.showTowers(this.solutionsBackup);
+	}
+
+	public void clearSolutionsSpace()
+	{
+		this.solutionsSet.clear();
+		this.solutionsBackup.clear();
 	}
 
 	//
