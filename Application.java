@@ -24,13 +24,13 @@ public class Application
 
 		s.setMaterials(materials.getMaterials());
 		s.initOpenStates(baseTower.getMaterialsRatio());
-		
-		solver.setSolutionsSet(s.combineMaterials(baseTower.getMaterialsRatio()), baseTower);
-		Tower highestTower = solver.findHighestTower();
-		solver.clearSolutionsSpace();
 
 		solver.setSolutionsSet(s.combineMaterials(baseTower.getMaterialsRatio()), baseTower);
 		Tower expensiveTower = solver.findExpensiveTower();
+		solver.clearSolutionsSpace();
+		
+		solver.setSolutionsSet(s.combineMaterials(baseTower.getMaterialsRatio()), baseTower);
+		Tower highestTower = solver.findHighestTower();
 		solver.clearSolutionsSpace();
 
 		solver.setSolutionsSetWithHole(s.combineMaterials(baseTower.getMaterialsRatio()), baseTower);
@@ -45,8 +45,8 @@ public class Application
 			for (Material material : highestTower.getMaterialsCount().keySet()) {
 				System.out.println(material.getName()+": "+highestTower.getMaterialsCount().get(material));
 			}
-			System.out.println("$: "+highestTower.getTotalPrice());
-			System.out.println("W: "+highestTower.getWeight());
+			// System.out.println("$: "+highestTower.getTotalPrice());
+			// System.out.println("W: "+highestTower.getWeight());
 			System.out.println();
 		}
 
@@ -58,8 +58,8 @@ public class Application
 			for (Material material : expensiveTower.getMaterialsCount().keySet()) {
 				System.out.println(material.getName()+": "+expensiveTower.getMaterialsCount().get(material));
 			}
-			System.out.println("$: "+expensiveTower.getTotalPrice());
-			System.out.println("W: "+expensiveTower.getWeight());
+			// System.out.println("$: "+expensiveTower.getTotalPrice());
+			// System.out.println("W: "+expensiveTower.getWeight());
 			System.out.println();
 		}
 
@@ -71,8 +71,8 @@ public class Application
 			for (Material material : voidTower.getMaterialsCount().keySet()) {
 				System.out.println(material.getName()+": "+voidTower.getMaterialsCount().get(material));
 			}
-			System.out.println("$: "+expensiveTower.getTotalPrice());
-			System.out.println("W: "+expensiveTower.getWeight());
+			// System.out.println("$: "+expensiveTower.getTotalPrice());
+			// System.out.println("W: "+expensiveTower.getWeight());
 			System.out.println();
 		}
 	}

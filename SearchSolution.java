@@ -34,18 +34,14 @@ public class SearchSolution
 				this.solutionsBackup.clear();
 				return;
 			}
-
-			// print
-			// this.showTower(newTower);
 			
 			this.solutionsSet.add(newTower);
-			
-			// System.out.println(this.solutionsSet.size());
 		}
 	}
 
 	public Tower findExpensiveTower()
-	{	Tower expensiveTower;
+	{	
+		Tower expensiveTower;
 		int towersVolume = 0;
 		while(towersVolume != 100 && this.solutionsSet.size() > 0) {
 			expensiveTower = this.solutionsSet.get(0);
@@ -113,24 +109,7 @@ public class SearchSolution
 
 	public void clearSolutionsSpace()
 	{
-		this.solutionsSet.clear();
-		this.solutionsBackup.clear();
-	}
-
-	//
-	public void showTowers(List<Tower> list)
-	{
-		for (Tower t : list) {
-			System.out.print("h: "+t.getH());
-			System.out.print(" w: "+t.getWeight());
-			System.out.println(" price: "+t.getTotalPrice());
-		}
-	}
-
-	public void showTower(Tower t)
-	{
-		System.out.print("h: "+t.getH());
-		System.out.print(" w: "+t.getWeight());
-		System.out.println(" price: "+t.getTotalPrice());
+		this.solutionsSet =  new ArrayList<Tower>();
+		this.solutionsBackup =  new ArrayList<Tower>();
 	}
 }

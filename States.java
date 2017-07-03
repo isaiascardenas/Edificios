@@ -52,27 +52,4 @@ public class States
 			emptyList.add(fullList.remove(0));
 		}
 	}
-
-	//
-	private void showStates(List<List<Material>> openState)
-	{
-		System.out.println("[ ");
-		for (List<Material> list : openState) {
-			System.out.print("  [ ");
-			for (Material m : list) {
-				System.out.print(m.getName() + ", ");
-			}
-			System.out.println("], ");
-		}
-		System.out.println("]");
-	}
-
-	private void showState(List<Material> openState)
-	{
-		System.out.print("  [ ");
-		for (Material m : openState) {
-			System.out.print(m.getName() + ", ");
-		}
-		System.out.println("], ");
-	}
 }

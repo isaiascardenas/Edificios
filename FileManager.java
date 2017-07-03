@@ -35,21 +35,4 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-
-	public void writeFile(List<String> findingWords)
-	{
-		try {
-	        File file = new File(this.fileName);
-	        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-
-            bw.write("Palabras en ambas sopas:\n");
-            for (String word: findingWords) {
-            	bw.write(word + "\n");
-            }
-
-	        bw.close();
-		} catch(Exception e){
-			e.printStackTrace();
-		}
-	}
 }
