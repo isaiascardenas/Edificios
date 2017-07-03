@@ -19,8 +19,6 @@ public class Application
 		baseTower.setMaterialsRatio(this.inputPercents(materials.getCategories()));
 		baseTower.setArea(this.inputArea());
 
-		//
-
 		States s = new States();
 		SearchSolution solver = new SearchSolution(this.inputBudget(), this.inputWeight());
 
@@ -35,30 +33,38 @@ public class Application
 		Tower expensiveTower = solver.findExpensiveTower();
 		solver.clearSolutionsSpace();
 
-		// solver.setSolutionsSet(s.combineMaterials(baseTower.getMaterialsRatio()), baseTower);
-		// Tower voidTower = solver.findExpensiveTower();
-		// solver.clearSolutionsSpace();
-
-		//
+		// solver.setSolutionsSetWithHole(s.combineMaterials(baseTower.getMaterialsRatio()), baseTower);
+		// Tower voidTower = solver.findHighestTower();	
 
 		if (highestTower == null) {
 			System.out.println("Esta torre(la mas alta) no se puede construir");
 		} else {
-			System.out.print("Torre mas alta:\nh: "+highestTower.getH());
-			System.out.println(";"+highestTower.getHole());
-			System.out.println(" W:"+highestTower.getWeight()+" $:"+highestTower.getTotalPrice());
+			System.out.println("Torre mas alta: "+highestTower.getH());
+			for (Material material : highestTower.getMaterialsCount().keySet()) {
+				System.out.println(material.getName()+": "+highestTower.getMaterialsCount().get(material));
+			}
+			System.out.println();
 		}
 
 		if (expensiveTower == null) {
 			System.out.println("Esta torre(la mas lujosa) no se puede construir");
 		} else {
-			System.out.print("\nTorre mas lujosa:\nh: "+expensiveTower.getH());
-			System.out.println(" W:"+expensiveTower.getWeight()+" $:"+expensiveTower.getTotalPrice());
+			System.out.println("Torre mas lujosa: "+expensiveTower.getH());
+			for (Material material : expensiveTower.getMaterialsCount().keySet()) {
+				System.out.println(material.getName()+": "+expensiveTower.getMaterialsCount().get(material));
+			}
+			System.out.println();
 		}
 
-		// System.out.println("Done!");
-		// System.out.print("Torre mas alta hueca es:"+expensiveTower.getH());
-		// System.out.println(" W:"+expensiveTower.getWeight()+" $:"+expensiveTower.getTotalPrice());
+		// if (voidTower == null) {
+		// 	System.out.println("Esta torre(la torre hueca) no se puede construir");
+		// } else {
+		// 	System.out.println("Torre mas alta y hueca: "+voidTower.getH());
+		// 	for (Material material : voidTower.getMaterialsCount().keySet()) {
+		// 		System.out.println(material.getName()+": "+voidTower.getMaterialsCount().get(material));
+		// 	}
+		// 	System.out.println();
+		// }
 	}
 
 	private int inputWeight(){

@@ -154,7 +154,13 @@ public class Tower
 		return this.categoriesPercents;
 	}
 
-	public int getWeight(){
+	public HashMap<Material, Integer> getMaterialsCount()
+	{
+		return this.materialsCount;
+	}
+	
+	public int getWeight()
+	{
 		return this.weight;
 	}
 

@@ -24,6 +24,21 @@ public class SearchSolution
 		}
 	}
 
+	public void setSolutionsSetWithHole(List<List<Material>> combineMaterials, Tower baseTower)
+	{
+		for (List<Material> materials : combineMaterials) {
+			Tower newTower = new Tower(baseTower.getArea()[0], baseTower.getArea()[1], baseTower.getMaterialsRatio(), baseTower.getMaterialsPercents());
+			newTower.setMaterials(materials);
+			newTower.setMinHWithHole();
+
+			this.showTower(newTower);
+			
+			this.solutionsSet.add(newTower);
+			
+			System.out.println(this.solutionsSet.size());
+		}
+	}
+
 	public Tower findExpensiveTower()
 	{	Tower expensiveTower;
 		int towersVolume = 0;
@@ -76,16 +91,6 @@ public class SearchSolution
 		return this.solutionsBackup.get(0);
 	}
 
-	public Tower findVoidTower()
-	{
-		while(this.solutionsSet.size() > 0) {
-			this.filterHighestTower();
-		}
-
-		// System.out.println("sb.size: "+this.solutionsBackup.size());
-		return this.solutionsBackup.get(0);
-	}
-
 	public void filterHighestTower()
 	{	
 		this.solutionsBackup.clear();
@@ -98,7 +103,7 @@ public class SearchSolution
 
 			tower.buildFloors();
 		}
-		// this.showTowers(this.solutionsBackup);
+		// this.showTowers(this.solutionsSet);
 	}
 
 	public void clearSolutionsSpace()
@@ -115,5 +120,12 @@ public class SearchSolution
 			System.out.print(" w: "+t.getWeight());
 			System.out.println(" price: "+t.getTotalPrice());
 		}
+	}
+
+	public void showTower(Tower t)
+	{
+		System.out.print("h: "+t.getH());
+		System.out.print(" w: "+t.getWeight());
+		System.out.println(" price: "+t.getTotalPrice());
 	}
 }
