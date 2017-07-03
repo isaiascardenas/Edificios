@@ -78,21 +78,21 @@ public class Application
 	}
 
 	private int inputWeight(){
-		// System.out.println("¿Cuál es el peso que aguanta el área donde se construirá?");
-		// System.out.print(">> ");
+		System.out.println("¿Cuál es el peso que aguanta el área donde se construirá?");
+		System.out.print(">> ");
 		return this.sc.nextInt();
 	}
 
 	private int inputBudget(){
-		// System.out.println("¿Cuál es el presupuesto?");
-		// System.out.print(">> ");
+		System.out.println("¿Cuál es el presupuesto?");
+		System.out.print(">> ");
 		return this.sc.nextInt();
 	}
 
 	private int[] inputArea(){
 		int[] area = new int[2];
-		// System.out.println("¿Cuál es el área que usará la torre?");
-		// System.out.print(">> ");
+		System.out.println("¿Cuál es el área que usará la torre?");
+		System.out.print(">> ");
 		String[] input = this.sc.nextLine().split(" ");
 		area[0] = Integer.parseInt(input[0]);
 		area[1] = Integer.parseInt(input[1]);
@@ -104,9 +104,9 @@ public class Application
 		HashMap<String, Integer> percents = new HashMap<String, Integer>();
 		int totalPercents = 0;
 
-		// System.out.println("¿Cuáles son los porcentajes?");
+		System.out.println("¿Cuáles son los porcentajes?");
 		while(totalPercents != 100){
-			// System.out.print(">> ");
+			System.out.print(">> ");
 			String[] input = this.sc.nextLine().split("=");
 
 			if (categories.contains(input[0])) {

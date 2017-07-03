@@ -10,4 +10,4 @@ Dado que los archivos del programa ya fueron compilados solo hace falta ejecutar
 El programa realizará los cálculos he imprimirá los resultados torre por torre mostrando la cantidad y nombre de los materales necesarios para construir las torres. En caso de no ser posible construir alguna de ellas el programa lo indicará.
 
 Isaías Cárdenas
-Gabriel Gaete
+
