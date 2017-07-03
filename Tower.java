@@ -87,6 +87,7 @@ public class Tower
 		int volume = sum+this.hole;
 
 		while(volume%(this.m * this.n) != 0){
+			System.out.println("volume: "+volume);
 			volume+=sum;
 		}
 		this.minH = volume/(this.m * this.n);
@@ -178,6 +179,15 @@ public class Tower
 	public int getH()
 	{
 		return this.h;
+	}
+
+	public void destroyFloor()
+	{
+		this.h -= this.minH;
+
+		this.setMaterialsCount();
+		this.setTotalPrice();
+		this.setWeight();
 	}
 
 	public void buildFloors()

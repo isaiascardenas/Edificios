@@ -33,38 +33,46 @@ public class Application
 		Tower expensiveTower = solver.findExpensiveTower();
 		solver.clearSolutionsSpace();
 
-		// solver.setSolutionsSetWithHole(s.combineMaterials(baseTower.getMaterialsRatio()), baseTower);
-		// Tower voidTower = solver.findHighestTower();	
+		solver.setSolutionsSetWithHole(s.combineMaterials(baseTower.getMaterialsRatio()), baseTower);
+		Tower voidTower = solver.findHighestTower();	
 
 		if (highestTower == null) {
 			System.out.println("Esta torre(la mas alta) no se puede construir");
 		} else {
+			highestTower.destroyFloor();
+			highestTower.destroyFloor();
 			System.out.println("Torre mas alta: "+highestTower.getH());
 			for (Material material : highestTower.getMaterialsCount().keySet()) {
 				System.out.println(material.getName()+": "+highestTower.getMaterialsCount().get(material));
 			}
+			System.out.println("$: "+highestTower.getTotalPrice());
+			System.out.println("W: "+highestTower.getWeight());
 			System.out.println();
 		}
 
 		if (expensiveTower == null) {
 			System.out.println("Esta torre(la mas lujosa) no se puede construir");
 		} else {
+			expensiveTower.destroyFloor();
 			System.out.println("Torre mas lujosa: "+expensiveTower.getH());
 			for (Material material : expensiveTower.getMaterialsCount().keySet()) {
 				System.out.println(material.getName()+": "+expensiveTower.getMaterialsCount().get(material));
 			}
+			System.out.println("$: "+expensiveTower.getTotalPrice());
+			System.out.println("W: "+expensiveTower.getWeight());
 			System.out.println();
 		}
 
-		// if (voidTower == null) {
-		// 	System.out.println("Esta torre(la torre hueca) no se puede construir");
-		// } else {
-		// 	System.out.println("Torre mas alta y hueca: "+voidTower.getH());
-		// 	for (Material material : voidTower.getMaterialsCount().keySet()) {
-		// 		System.out.println(material.getName()+": "+voidTower.getMaterialsCount().get(material));
-		// 	}
-		// 	System.out.println();
-		// }
+		if (voidTower == null) {
+			System.out.println("Esta torre(la torre hueca) no se puede construir");
+		} else {
+		 voidTower.destroyFloor();
+			System.out.println("Torre mas alta y hueca: "+voidTower.getH());
+			for (Material material : voidTower.getMaterialsCount().keySet()) {
+				System.out.println(material.getName()+": "+voidTower.getMaterialsCount().get(material));
+			}
+			System.out.println();
+		}
 	}
 
 	private int inputWeight(){

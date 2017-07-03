@@ -31,11 +31,12 @@ public class SearchSolution
 			newTower.setMaterials(materials);
 			newTower.setMinHWithHole();
 
+			// print
 			this.showTower(newTower);
 			
 			this.solutionsSet.add(newTower);
 			
-			System.out.println(this.solutionsSet.size());
+			// System.out.println(this.solutionsSet.size());
 		}
 	}
 
@@ -60,7 +61,6 @@ public class SearchSolution
 			return null;
 		}
 
-		// System.out.println("sb.size: "+this.solutionsBackup.size());
 		return expensiveTower;
 	}
 
@@ -78,7 +78,6 @@ public class SearchSolution
 
 			tower.buildFloors();
 		}
-		// this.showTowers(this.solutionsBackup);
 	}
 
 	public Tower findHighestTower()
@@ -87,7 +86,6 @@ public class SearchSolution
 			this.filterHighestTower();
 		}
 
-		// System.out.println("sb.size: "+this.solutionsBackup.size());
 		return this.solutionsBackup.get(0);
 	}
 
@@ -103,7 +101,6 @@ public class SearchSolution
 
 			tower.buildFloors();
 		}
-		// this.showTowers(this.solutionsSet);
 	}
 
 	public void clearSolutionsSpace()

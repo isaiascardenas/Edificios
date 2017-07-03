@@ -1,6 +1,6 @@
 MaterialSoporteEstructural=50%
-MaterialInterior=20%
-MaterialExterior=30%
-5 2
-1000000
-2000
+MaterialInterior=30%
+MaterialExterior=20%
+7 2
+10000
+1000
