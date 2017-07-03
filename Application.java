@@ -37,7 +37,7 @@ public class Application
 		Tower voidTower = solver.findHighestTower();	
 
 		if (highestTower == null) {
-			System.out.println("Esta torre(la mas alta) no se puede construir");
+			System.out.println("Esta torre(la mas alta) no se puede construir\n");
 		} else {
 			highestTower.destroyFloor();
 			highestTower.destroyFloor();
@@ -51,7 +51,7 @@ public class Application
 		}
 
 		if (expensiveTower == null) {
-			System.out.println("Esta torre(la mas lujosa) no se puede construir");
+			System.out.println("Esta torre(la mas lujosa) no se puede construir\n");
 		} else {
 			expensiveTower.destroyFloor();
 			System.out.println("Torre mas lujosa: "+expensiveTower.getH());
@@ -64,13 +64,15 @@ public class Application
 		}
 
 		if (voidTower == null) {
-			System.out.println("Esta torre(la torre hueca) no se puede construir");
+			System.out.println("Esta torre(la torre hueca) no se puede construir\n");
 		} else {
-		 voidTower.destroyFloor();
+			voidTower.destroyFloor();
 			System.out.println("Torre mas alta y hueca: "+voidTower.getH());
 			for (Material material : voidTower.getMaterialsCount().keySet()) {
 				System.out.println(material.getName()+": "+voidTower.getMaterialsCount().get(material));
 			}
+			System.out.println("$: "+expensiveTower.getTotalPrice());
+			System.out.println("W: "+expensiveTower.getWeight());
 			System.out.println();
 		}
 	}

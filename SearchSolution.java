@@ -29,10 +29,14 @@ public class SearchSolution
 		for (List<Material> materials : combineMaterials) {
 			Tower newTower = new Tower(baseTower.getArea()[0], baseTower.getArea()[1], baseTower.getMaterialsRatio(), baseTower.getMaterialsPercents());
 			newTower.setMaterials(materials);
-			newTower.setMinHWithHole();
+			if (!newTower.setMinHWithHole()) {
+				this.solutionsSet.clear();
+				this.solutionsBackup.clear();
+				return;
+			}
 
 			// print
-			this.showTower(newTower);
+			// this.showTower(newTower);
 			
 			this.solutionsSet.add(newTower);
 			
@@ -82,6 +86,10 @@ public class SearchSolution
 
 	public Tower findHighestTower()
 	{
+		if (this.solutionsSet.size() == 0) {
+			return null;
+		}
+		
 		while(this.solutionsSet.size() > 0) {
 			this.filterHighestTower();
 		}

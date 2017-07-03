@@ -78,25 +78,31 @@ public class Tower
 		this.setWeight();
 	}
 
-	public void setMinHWithHole()
+	public Boolean setMinHWithHole()
 	{
 		int sum = 0;
+		List<Integer> leftovers = new ArrayList<Integer>();
 		for (int ratio : this.categoriesRatios.values()) {
 			sum += ratio;
 		}
 		int volume = sum+this.hole;
 
 		while(volume%(this.m * this.n) != 0){
-			System.out.println("volume: "+volume);
-			volume+=sum;
+			if (leftovers.contains(volume%(this.m * this.n)) || this.hole == 0) {
+				return false;
+			} else {
+				leftovers.add(volume%(this.m * this.n));
+				volume+=sum;
+			}
 		}
 		this.minH = volume/(this.m * this.n);
 		this.h = this.minH;
 
-
 		this.setMaterialsCount();
 		this.setTotalPrice();
 		this.setWeight();
+
+		return true;
 	}
 
 	public void setMaterialsCount()
